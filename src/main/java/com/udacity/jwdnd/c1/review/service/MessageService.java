@@ -1,21 +1,22 @@
 package com.udacity.jwdnd.c1.review.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
+import com.udacity.jwdnd.c1.review.dao.MessageMapper;
 import com.udacity.jwdnd.c1.review.entity.ChatForm;
 import com.udacity.jwdnd.c1.review.entity.ChatMessage;
 
 @Service
 public class MessageService {
 	
-	private List<ChatMessage> messages;
+	private MessageMapper messageMapper;
 	
-	public MessageService() {
+	public MessageService(MessageMapper messageMapper) {
+		this.messageMapper = messageMapper;
 	}
 	
 	public void addMessage(ChatForm chatForm) {
@@ -40,16 +41,17 @@ public class MessageService {
 				message.setMessageText(chatForm.getMessageText());
 				break;
 		}
-		messages.add(message);
+		
+		messageMapper.addMessage(message);
 	}
 	
 	public List<ChatMessage> getMessages() {
-		return messages;
+		return messageMapper.getMessages();
 	}
 	
 	@PostConstruct
 	public void postConstruct() {
-		messages = new ArrayList<>();
+
 		System.out.println("Creating MessageService bean");
 	}
 }
