@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.c1.review.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,11 @@ public class ChatController {
 	}
 	
 	@GetMapping
-	public String showChat(Model theModel) {
+	public String showChat( Model theModel) {
 		
 		// create ChatForm object
 		ChatForm chatForm = new ChatForm();
-		
+
 		// Add to the model attribute
 		theModel.addAttribute("chatForm", chatForm);
 		
@@ -34,8 +35,9 @@ public class ChatController {
 	}
 	
 	@PostMapping
-	public String processMessage(@ModelAttribute("chatForm") ChatForm chatForm, Model theModel) {
+	public String processMessage(Authentication authentication, ChatForm chatForm, Model theModel) {
 		
+		chatForm.setUsername(authentication.getName());
 		messageService.addMessage(chatForm);
 		chatForm.setMessageText("");
 		
