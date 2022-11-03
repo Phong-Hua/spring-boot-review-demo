@@ -30,6 +30,7 @@ public class ChatController {
 
 		// Add to the model attribute
 		theModel.addAttribute("chatForm", chatForm);
+		theModel.addAttribute("messages", messageService.getMessages());
 		
 		return "chat";
 	}
