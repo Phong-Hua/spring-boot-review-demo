@@ -21,15 +21,13 @@ public class SignupController {
 	}
 	
 	@GetMapping
-	public String showSignupForm(Model theModel) {
-		User user = new User();
-		theModel.addAttribute("user", user);
+	public String showSignupForm() {
 		return "signup";
 	}
 	
 	@PostMapping
 	public String processSignup(@ModelAttribute("user") User theUser, Model theModel) {
-		
+
 		String signupError = null;
 
 		if (!userService.isUsernameAvailable(theUser.getUsername()))
@@ -49,7 +47,7 @@ public class SignupController {
 		} else {
 			theModel.addAttribute("signupError", signupError);
 		}
-		System.out.println("Signup error: " + signupError);
+
 		return "signup";
 	}
 }
