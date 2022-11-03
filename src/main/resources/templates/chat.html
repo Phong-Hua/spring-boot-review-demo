@@ -12,6 +12,17 @@
 	<div class="container justify-content-center w-75 p-3">
 		<h1>Spring Chat Messenger</h1>
 		<hr>
+		<form
+			action="#"
+			method="POST"
+			th:action="@{/logout}"
+		>
+			<button
+				id="logout-button"
+				type="submit"
+				class="btn btn-outline-danger float-right"
+			>Logout</button>
+		</form>
 		<form 
 			th:object="${chatForm}" 
 			method="POST" 
